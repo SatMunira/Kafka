@@ -1,0 +1,48 @@
+app:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMsec: 864000000
+    authorizedRedirectUris:
+        - http://localhost:8081/oauth2/redirect
+bezkoder:
+    app:
+        jwtExpirationMs: 86400000
+        jwtSecret: bezKoderSecretKey
+proxy-target-class: true
+server:
+    port: 8084
+spring:
+    mail:
+        host: smtp.gmail.com
+        username: Nataschandreeva83@gmail.com
+        password: sahsdggjcjjyngkc
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        client-id: 374981250488-l62bbdgt7n79c6hgq5nabamug7ahfdha.apps.googleusercontent.com
+                        client-secret: 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
+                        scope:
+                            - email
+                            - profile
+    datasource:
+        password: postgres
+        url: jdbc:postgresql://localhost:5432/testDB
+        username: postgres
+    jpa:
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+                jdbc:
+                    lob:
+                        non_contextual_creation: true
+
