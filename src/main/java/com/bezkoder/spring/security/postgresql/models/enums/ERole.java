@@ -1,4 +1,4 @@
-package com.bezkoder.spring.security.postgresql.models;
+package com.bezkoder.spring.security.postgresql.models.enums;
 
 import org.springframework.security.core.GrantedAuthority;
 

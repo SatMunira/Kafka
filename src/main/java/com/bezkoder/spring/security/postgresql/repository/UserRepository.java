@@ -10,14 +10,16 @@ import com.bezkoder.spring.security.postgresql.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-  Optional<User> findByUsername(String username);
+    Optional<User> findByUsername(String username);
 
-  Boolean existsByUsername(String username);
+    Boolean existsByUsername(String username);
 
-  @Query("SELECT u FROM User u WHERE u.username = ?1 or u.email= ?1")
-  User getUserByUsername(String email);
+    @Query("SELECT u FROM User u WHERE u.username = ?1 or u.email= ?1")
+    User getUserByUsername(String email);
 
-  Optional<User> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
-  Boolean existsByEmail(String email);
+    Boolean existsByEmail(String email);
+
+    User findByResetPasswordToken(String token);
 }

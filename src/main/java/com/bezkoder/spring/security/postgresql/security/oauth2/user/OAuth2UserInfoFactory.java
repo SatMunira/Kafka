@@ -6,7 +6,7 @@ import com.bezkoder.spring.security.postgresql.exception.OAuth2AuthenticationPro
 
 import java.util.Map;
 
-import static com.bezkoder.spring.security.postgresql.models.AuthProvider.google;
+import static com.bezkoder.spring.security.postgresql.models.enums.AuthProvider.google;
 
 
 public class OAuth2UserInfoFactory {

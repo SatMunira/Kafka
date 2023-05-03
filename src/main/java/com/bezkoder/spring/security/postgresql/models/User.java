@@ -1,5 +1,7 @@
 package com.bezkoder.spring.security.postgresql.models;
 
+import com.bezkoder.spring.security.postgresql.models.enums.AuthProvider;
+import com.bezkoder.spring.security.postgresql.models.enums.ERole;
 import lombok.Data;
 
 import java.util.HashSet;
@@ -19,7 +21,7 @@ import javax.validation.constraints.Size;
 		})
 public class User {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotBlank

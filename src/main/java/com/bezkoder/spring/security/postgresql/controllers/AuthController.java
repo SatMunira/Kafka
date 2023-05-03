@@ -4,14 +4,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import com.bezkoder.spring.security.postgresql.security.jwt.AuthTokenFilter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,15 +15,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bezkoder.spring.security.postgresql.models.ERole;
+import com.bezkoder.spring.security.postgresql.models.enums.ERole;
 import com.bezkoder.spring.security.postgresql.models.User;
 import com.bezkoder.spring.security.postgresql.payload.request.LoginRequest;
 import com.bezkoder.spring.security.postgresql.payload.request.SignupRequest;
@@ -76,8 +70,6 @@ public class AuthController {
 		return ResponseEntity.ok(response);
 	}
 
-
-
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		log.info("Trying to signup the user");
@@ -102,7 +94,7 @@ public class AuthController {
 
 
 		if (strRoles == null) {
-			user.getRoles().add(ERole.ROLE_USER	);
+			user.getRoles().add(ERole.ROLE_MODERATOR	);
 		} else {
 			strRoles.forEach(role -> {
 				switch (role) {

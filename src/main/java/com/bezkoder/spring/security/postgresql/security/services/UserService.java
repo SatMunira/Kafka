@@ -1,7 +1,7 @@
 package com.bezkoder.spring.security.postgresql.security.services;
 
-import com.bezkoder.spring.security.postgresql.models.AuthProvider;
-import com.bezkoder.spring.security.postgresql.models.ERole;
+import com.bezkoder.spring.security.postgresql.models.enums.AuthProvider;
+import com.bezkoder.spring.security.postgresql.models.enums.ERole;
 import com.bezkoder.spring.security.postgresql.models.User;
 import com.bezkoder.spring.security.postgresql.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

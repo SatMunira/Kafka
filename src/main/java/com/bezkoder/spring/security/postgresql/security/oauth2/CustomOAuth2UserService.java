@@ -1,11 +1,10 @@
 package com.bezkoder.spring.security.postgresql.security.oauth2;
 
 import com.bezkoder.spring.security.postgresql.exception.OAuth2AuthenticationProcessingException;
-import com.bezkoder.spring.security.postgresql.models.AuthProvider;
+import com.bezkoder.spring.security.postgresql.models.enums.AuthProvider;
 import com.bezkoder.spring.security.postgresql.models.User;
 import com.bezkoder.spring.security.postgresql.repository.UserRepository;
 
-import com.bezkoder.spring.security.postgresql.security.oauth2.user.GoogleOAuth2UserInfo;
 import com.bezkoder.spring.security.postgresql.security.oauth2.user.OAuth2UserInfo;
 import com.bezkoder.spring.security.postgresql.security.oauth2.user.OAuth2UserInfoFactory;
 import com.bezkoder.spring.security.postgresql.security.services.UserDetailsImpl;

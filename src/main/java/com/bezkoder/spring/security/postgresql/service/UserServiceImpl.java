@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -29,18 +30,27 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     public UserDetails loadUserById(Long id) {
         User user = userRepository.findById(id).get();
-
-
         return UserDetailsImpl.build(user);
     }
-    public void updateResetPasswordToken(String token, String email)  {
+
+    public void updateResetPasswordToken(String token, String email) {
         User user = userRepository.findByEmail(email).orElse(null); //maybe here?
         if (user != null) {
             user.setResetPasswordToken(token);
             userRepository.save(user);
         }
+    }
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
     }
 }

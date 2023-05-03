@@ -1,17 +1,15 @@
 package com.bezkoder.spring.security.postgresql.controllers;
 
+import com.bezkoder.spring.security.postgresql.models.User;
 import com.bezkoder.spring.security.postgresql.service.UserServiceImpl;
 import com.bezkoder.spring.security.postgresql.util.Utility;
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.utility.RandomString;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -33,7 +31,7 @@ public class ForgotPasswordController {
         try {
             userService.updateResetPasswordToken(token,email.toLowerCase());
 
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password_form?token=" + token;
             System.out.println(resetPasswordLink);
             sendEmail(email, resetPasswordLink);
             System.out.println("Email: "+email);
@@ -68,5 +66,22 @@ public class ForgotPasswordController {
             mailSender.send(message);}catch(Exception exception){
             System.out.println(exception);
         }
+    }
+
+
+    @PostMapping("/reset_password")
+    public String processResetPassword(HttpServletRequest request) {
+        String token = request.getParameter("token");
+        String password = request.getParameter("password");
+        System.out.println(token+"\n"+ password);
+
+        User user = userService.getByResetPasswordToken(token);
+        if (user == null) {
+            return "Invalid token, try again";
+        } else {
+            userService.updatePassword(user, password);
+        }
+
+        return "You change your password successfully";
     }
 }
