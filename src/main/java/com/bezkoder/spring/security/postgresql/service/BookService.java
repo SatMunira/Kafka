@@ -22,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
+
     private final AuthorRepository authorRepository;
 
     @Transactional
