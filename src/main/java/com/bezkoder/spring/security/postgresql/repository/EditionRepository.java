@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface EditionRepository extends JpaRepository<Edition, Long> {
-    List<Edition> findTop7ByOrderByDateOfManufactureDesc();
+
 }

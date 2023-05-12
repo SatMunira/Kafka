@@ -13,6 +13,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
+
     private String name;
     @ManyToMany
     private List<Book> books;

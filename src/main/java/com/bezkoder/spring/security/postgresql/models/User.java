@@ -5,6 +5,7 @@ import com.bezkoder.spring.security.postgresql.models.enums.ERole;
 import lombok.Data;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -45,10 +46,12 @@ public class User {
 	private String password;
 
 
+
 	@ElementCollection(targetClass = ERole.class, fetch = FetchType.EAGER)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	@Enumerated(EnumType.STRING)
 	private Set<ERole> roles = new HashSet<>();
+
 
 	public User() {
 	}

@@ -14,16 +14,17 @@
         @GeneratedValue(strategy = GenerationType.AUTO)
         @Column(name = "id", nullable = false)
         private Long id;
-        private String title;
-        private String alternativeTitle;
 
         private String image;
-        private Date dateOfManufacture;
+        private Integer manufactureDate;
         @Column(name = "name", length = 15000)
         private String description;
 
         @ManyToOne(fetch = FetchType.LAZY)
         private Book book;
+
+        @ManyToMany(cascade = CascadeType.MERGE)
+        private List<Publisher> publishers;
 
         public String getImageUrl() {
             return "/images/imagePreview/" + this.getId() + "/" + this.getImage();

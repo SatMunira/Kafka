@@ -105,7 +105,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
                         "/**/*.js")
                 .permitAll()
                 .antMatchers("/auth/**", "/login/oauth2/**","/forgot_password/*"
-                        ,"/reset_password/*","/books/latest","/images/**","/books/all","/genres/genreList","/tags/all")
+                        ,"/reset_password/*","/books/latest","/images/**","/books/all","/genres/genreList","/tags/all","/books/book/**","/ratings/**","/reviews/**", "/comments/**","/api/booklists/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

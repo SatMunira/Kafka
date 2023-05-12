@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +19,13 @@ public class Book {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private String title;
+    private Integer yearOfWriting;
+    private Integer quantityOfPages;
+    private Double rating;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Author> authors;
-    @ManyToMany(cascade = CascadeType.MERGE)
-    private List<Publisher> publishers;
-
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Edition> editions;
@@ -33,9 +35,16 @@ public class Book {
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Tag> tags;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Reviews> reviews;
+
 
 
     public Book() {
         this.editions = new ArrayList<>();
+    }
+
+    public String getImageUrl() {
+        return "/images/imageBack/" + this.getId() + "/" + this.getImageBack();
     }
 }

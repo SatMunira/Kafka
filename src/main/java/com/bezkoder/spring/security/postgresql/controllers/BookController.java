@@ -2,15 +2,11 @@ package com.bezkoder.spring.security.postgresql.controllers;
 
 import com.bezkoder.spring.security.postgresql.models.Book;
 import com.bezkoder.spring.security.postgresql.models.Edition;
-import com.bezkoder.spring.security.postgresql.models.Genre;
 import com.bezkoder.spring.security.postgresql.models.Tag;
-import com.bezkoder.spring.security.postgresql.payload.request.CreateBookRequest;
 import com.bezkoder.spring.security.postgresql.repository.BookRepository;
-import com.bezkoder.spring.security.postgresql.repository.EditionRepository;
 import com.bezkoder.spring.security.postgresql.service.BookService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -29,16 +25,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    private final EditionRepository editionRepository;
     private final BookRepository bookRepository;
+
 
     @GetMapping("/book/{id}")
     public ResponseEntity<Book> getBook(@PathVariable Long id) {
         Book book = bookService.getBookById(id);
         return ResponseEntity.ok(book);
     }
-
-
 
     @PostMapping(value = "/createBook", consumes = {MediaType.APPLICATION_JSON_VALUE,
             MediaType.MULTIPART_FORM_DATA_VALUE})
@@ -61,20 +55,33 @@ public class BookController {
         System.out.println(newBook);
         System.out.println(editionq);
 
-
-
         bookService.createBook(newBook, image, BackQwe,  editionq);
 
         return ResponseEntity.ok("Success");
     }
     @GetMapping("/latest")
-    public List<Edition> getLatestEditions(){
-        return editionRepository.findTop7ByOrderByDateOfManufactureDesc();
+    public List<Book> getLatestBooks(){
+        return bookRepository.findTop7ByOrderByYearOfWritingDesc()  ;
     }
 
     @GetMapping("/all")
     public List<Book> getAllEditions(){
         return  bookRepository.findAll();
+    }
+
+    @PostMapping("/setTag")
+    public Book setTags(@RequestBody Book book, @RequestBody List<Tag> tags) {
+        try {
+            if (book != null) {
+                book.setTags(tags);
+                bookRepository.save(book);
+            }
+            return book;
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
     }
 
 
