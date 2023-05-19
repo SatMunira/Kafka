@@ -23,6 +23,7 @@ public class Book {
     private Integer yearOfWriting;
     private Integer quantityOfPages;
     private Double rating;
+    private String blo;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     private List<Author> authors;
